@@ -1,0 +1,17 @@
+{
+    "name": "Janus",
+    "description": "Janus has the task of bringing the most memorable moments of the day, from last years.",
+    "keywords": [
+        "slackbot",
+        "OnThisDay",
+        "nostalgia"
+    ],
+    "repository": "https://github.com/kossiitkgp/OnThisDay",
+    "logo": "logo.png",
+    "env": {
+        "SLACK_BOT_TOKEN": {
+            "description": "Slack's OAUTH Token",
+            "generator": "secret"
+        }
+    }
+}
