@@ -167,7 +167,7 @@ class OnThisDay:
             if ch[CH_NAME] == 'random':
                 channel_id = ch[CH_ID]
                 break
-        msg = "Here's what was trending OnThisDay!\n\n>"\
+        msg = "Here's what was trending *OnThisDay*!\n\n>"\
               + self.decorated_message[MSG_CONTENT]+"\n\n-- by @" + \
               self.decorated_message[MSG_CREATOR] + " in #" + \
               self.decorated_message[MSG_CH] + "\n\n" + \
