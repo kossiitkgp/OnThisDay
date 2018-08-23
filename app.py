@@ -96,7 +96,7 @@ class OnThisDay:
                     num=len(ch_hist.get("messages", []))
                 ))
                 if ch_hist is not None:
-                    for msg in ch_hist["messages"]:
+                    for msg in ch_hist.get("messages", []):
                         if msg["type"] == "message":
                             content = msg.get("text", "false")
                             user = msg.get("user", "user detection failed")
