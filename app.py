@@ -89,10 +89,10 @@ class OnThisDay:
                                                latest=self.time("end", time_frame, x),
                                                oldest=self.time("start", time_frame, x)
                                                )
-                print("Data for {ch} fetched under {frame} (interation: {iter}) time-frame with {num} messages".format(
+                print("Data for {ch} fetched under {iter} {frame} old time-frame with {num} messages".format(
                     ch=ch[CH_NAME],
                     frame=time_frame,
-                    iter=x,
+                    iter=x+1,
                     num=len(ch_hist.get("messages", []))
                 ))
                 if ch_hist is not None:
