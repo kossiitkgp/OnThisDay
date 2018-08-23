@@ -139,7 +139,7 @@ class OnThisDay:
         msg_metadata = self.client.api_call('search.messages',
                                             query=self.message[MSG_CONTENT],
                                             )
-        print(msg_metadata)
+        # print(msg_metadata)
         if msg_metadata["ok"]:
             msg_metadata = msg_metadata["messages"]['matches'][0]
             decorated_msg = (
