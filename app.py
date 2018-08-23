@@ -44,7 +44,8 @@ class OnThisDay:
                     break
             self.client.api_call(method="chat.postMessage",
                                  channel=channel_id,
-                                 text=msg
+                                 text=msg,
+                                 username="Mnemosyne"
                                  )
 
     def list_channels(self):
@@ -175,7 +176,7 @@ class OnThisDay:
                                         channel=channel_id,
                                         text=msg,
                                         link_names=True,
-                                        username="Janus"
+                                        username="Mnemosyne"
                                         )
         if response["ok"]:
             print("Yay, nostalgia spread!")
