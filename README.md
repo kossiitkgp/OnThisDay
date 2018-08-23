@@ -1,5 +1,5 @@
 # Mnemosyne: The Goddess Of Memory
-Spread nostalgia since... no one knows!
+Spreading nostalgia since... no one knows!
 
 ## OnThisDay
 
@@ -14,12 +14,12 @@ is not a member. The client will soon be available on the slack web store.
 ## Permission required
 The following slack API scopes are used by _Mnemosyne_:
 
-'''
+```
 - channels:history
 - channels:read
 - chat:write:bot
 - search:read
-'''
+```
 
 ## Contributions
 Contributions to the project are welcome, and if you have any ideas or issues you face, please raise a ticket.
