@@ -82,31 +82,35 @@ class OnThisDay:
         list_msgs = []
         for ch in self.channel_list:
             for x in range(6):
-                ch_hist = self.client.api_call(method="channels.history",
-                                               channel=ch[CH_ID],
-                                               count=1000,
-                                               inclusive=True,
-                                               latest=self.time("end", time_frame, x),
-                                               oldest=self.time("start", time_frame, x)
-                                               )
-                print("Data for {ch} fetched under {iter} {frame} old time-frame with {num} messages".format(
-                    ch=ch[CH_NAME],
-                    frame=time_frame,
-                    iter=x+1,
-                    num=len(ch_hist.get("messages", []))
-                ))
-                if ch_hist is not None:
-                    for msg in ch_hist.get("messages", []):
-                        if msg["type"] == "message":
-                            content = msg.get("text", "false")
-                            user = msg.get("user", "user detection failed")
-                            reacts = msg.get("reactions", [])
-                            reacts_count = 0
-                            for reaction in reacts:
-                                reacts_count += reaction.get('count', 0)
+                try:
+                    ch_hist = self.client.api_call(method="channels.history",
+                                                   channel=ch[CH_ID],
+                                                   count=1000,
+                                                   inclusive=True,
+                                                   latest=self.time("end", time_frame, x),
+                                                   oldest=self.time("start", time_frame, x)
+                                                   )
+                    print("Data for {ch} fetched under {iter} {frame} old time-frame with {num} messages".format(
+                        ch=ch[CH_NAME],
+                        frame=time_frame,
+                        iter=x+1,
+                        num=len(ch_hist.get("messages", []))
+                    ))
+                    if ch_hist is not None:
+                        for msg in ch_hist.get("messages", []):
+                            if msg["type"] == "message":
+                                content = msg.get("text", "false")
+                                user = msg.get("user", "user detection failed")
+                                reacts = msg.get("reactions", [])
+                                reacts_count = 0
+                                for reaction in reacts:
+                                    reacts_count += reaction.get('count', 0)
 
-                            list_msgs.append((content, ch[CH_NAME], user, reacts_count))
-
+                                list_msgs.append((content, ch[CH_NAME], user, reacts_count))
+                except ValueError:
+                    print("Day doesn't exist in the current - {iter} month".format(
+                        iter=x+1
+                    ))
         return list_msgs
 
     def max_emoji_msg(self):
@@ -210,8 +214,8 @@ class OnThisDay:
         else:
             time_str = time_str+" 23:59"
         # print(time_str)
-
         start_time = time.mktime(datetime.datetime.strptime(time_str, "%d/%m/%Y %H:%M").timetuple())
+
         return start_time
 
     @staticmethod
