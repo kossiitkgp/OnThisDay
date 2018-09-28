@@ -96,18 +96,24 @@ class OnThisDay:
                         iter=x+1,
                         num=len(ch_hist.get("messages", []))
                     ))
+
                     if ch_hist is not None:
                         for msg in ch_hist.get("messages", []):
                             if msg["type"] == "message":
+                                is_birthday_msg = False
                                 content = msg.get("text", "false")
                                 if "Here's what was trending" not in content:
                                     user = msg.get("user", "user detection failed")
                                     reacts = msg.get("reactions", [])
                                     reacts_count = 0
                                     for reaction in reacts:
+                                        if reaction.get('name', 'none') == "birthday":
+                                            is_birthday_msg = True
+                                            break
                                         reacts_count += reaction.get('count', 0)
 
-                                    list_msgs.append((content, ch[CH_NAME], user, reacts_count))
+                                    if not is_birthday_msg:
+                                        list_msgs.append((content, ch[CH_NAME], user, reacts_count))
                 except ValueError:
                     print("Day doesn't exist in the current - {iter} month".format(
                         iter=x+1
