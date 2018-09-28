@@ -152,13 +152,19 @@ class OnThisDay:
                                             )
         # print(msg_metadata)
         if msg_metadata["ok"]:
-            msg_metadata = msg_metadata["messages"]['matches'][0]
-            decorated_msg = (
-                msg_metadata["text"],
-                msg_metadata["channel"]["name"],
-                msg_metadata["username"],
-                msg_metadata["permalink"]
-            )
+            index = 0
+            while True:
+                msg_metadata = msg_metadata["messages"]['matches'][index]
+                if msg_metadata["username"] == "mnemosyne":
+                    index = index+1
+                    continue
+                decorated_msg = (
+                    msg_metadata["text"],
+                    msg_metadata["channel"]["name"],
+                    msg_metadata["username"],
+                    msg_metadata["permalink"]
+                )
+                break
         else:
             print("message decoration failed!")
             sys.exit(1)
