@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
 	"log"
 	"net/http"
@@ -35,9 +36,15 @@ func InitHandler(repwri http.ResponseWriter, req *http.Request) {
 func RedirectHandler(w http.ResponseWriter, r *http.Request) {
 
 	uri := "https://slack.com/api/oauth.access?code=" + r.URL.Query().Get("code") + "&client_id=" + os.Getenv("CLIENT_ID") + "&client_secret=" + os.Getenv("CLIENT_SECRET") + "&redirect_uri=" + os.Getenv("REDIRECT_URI")
-	resp, err := http.Get(uri)
-	if err != nil {
+	resp, Geterr := http.Get(uri)
+	if Geterr != nil {
 		log.Fatal("Failed to authenticate")
 	}
-	fmt.Printf("%+v", resp)
+	var JSONResp interface{}
+	jsonDecoder := json.NewDecoder(resp.Body)
+	JSONerr := jsonDecoder.Decode(&JSONResp)
+	if JSONerr != nil {
+		log.Fatal("Failed to decode the body")
+	}
+	fmt.Printf("%+v", JSONResp)
 }
