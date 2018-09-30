@@ -64,29 +64,32 @@ func RedirectHandler(w http.ResponseWriter, r *http.Request) {
 	if JSONerr != nil {
 		log.Fatal("Failed to decode the body")
 	}
-	log.Println("authenticated tokens received!")
+	log.Println("Authentication tokens received!")
 	// fmt.Printf("%+v", JSONResp)
 	SaveCred(JSONResp, AuthCode+".temp")
 }
 
 func SaveCred(JSONResp interface{}, FileName string) {
 	CheckDir()
-	path := fmt.Sprint(DIR, FileName)
+	path := fmt.Sprint(DIR, "/"+FileName)
 	os.Remove(path)
-	log.Println("Creds being saved to " + path)
+	log.Println("Creds being saved to " + path + "...")
 
+	// TODO: Add a check to validate the response (sometimes the response is not "OK")
 	ToSave, MarshalErr := json.Marshal(JSONResp)
 	if MarshalErr != nil {
 		log.Println("Failed to save creds")
 		log.Printf("%+v", MarshalErr)
 	}
 	ioutil.WriteFile(path, ToSave, 0644)
+	log.Println("Creds saved successfully!")
 }
 
 func CheckDir() {
 	_, DirErr := os.Stat(DIR)
 	if DirErr != nil {
 		if os.IsNotExist(DirErr) {
+			log.Println("Creating " + DIR + " directory in current folder for storing creds...")
 			os.Mkdir(DIR, 0755)
 		} else {
 			log.Println(DirErr)
