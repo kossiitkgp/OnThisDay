@@ -33,10 +33,11 @@ func InitHandler(repwri http.ResponseWriter, req *http.Request) {
 }
 
 func RedirectHandler(w http.ResponseWriter, r *http.Request) {
-	uri := "https://slack.com/api/oauth.access?code=" + r.query.code + "&client_id=" + os.Getenv("CLIENT_ID") + "&client_secret=" + os.Getenv("CLIENT_SECRET") + "&redirect_uri=" + os.Getenv("REDIRECT_URI")
+
+	uri := "https://slack.com/api/oauth.access?code=" + r.URL.Query().Get("code") + "&client_id=" + os.Getenv("CLIENT_ID") + "&client_secret=" + os.Getenv("CLIENT_SECRET") + "&redirect_uri=" + os.Getenv("REDIRECT_URI")
 	resp, err := http.Get(uri)
 	if err != nil {
 		log.Fatal("Failed to authenticate")
 	}
-	fmt.Printf(resp)
+	fmt.Printf("%+v", resp)
 }
