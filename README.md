@@ -23,3 +23,5 @@ The following slack API scopes are used by _Mnemosyne_:
 
 ## Contributions
 Contributions to the project are welcome, and if you have any ideas or issues you face, please raise a ticket.
+
+Please read CONTRIBUTING.md guide to know more.
